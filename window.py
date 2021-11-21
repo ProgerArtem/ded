@@ -17,7 +17,17 @@ class Window(Tk):
         self.entry_search.grid(row=3, column=0,
                                columnspan=2)
         self.search_but.grid(row=3, column=2)
+def on_change(event):
+    widget = event.widget  # виджет, с которым произошло событие (в данном случае listbox)
+    selection = widget.curselection()  # получаем список индексов выделенных элементов
+    if selection:  # если что-то выделено
+        text = widget.get(selection[0])  # Текст в выбранной строке
+        # выводим текст выделенного элемента в консоль
+        print(text)
+        # то же самое, но вывод в диалоговое окно
+        messagebox.showinfo('Title', text)
 
+lbox.bind('<<ListboxSelect>>', on_change)
         self.list_track = Listbox(self, width=60, height=15)
         self.list_track.grid(row=4, column=0, columnspan=2,
                              rowspan=3,
