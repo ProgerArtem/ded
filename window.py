@@ -45,7 +45,8 @@ class Window(Tk):
         if selection:
             text = widget.get(selection[0])  
             print(text)
-        messagebox.showinfo('Title', self.select)
+        messagebox.showinfo('Title', self.db_search.select)
+        print()
     def search(self):
         print("Text from entry:",self.search_text.get())
         text = self.search_text.get()
