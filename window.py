@@ -1,11 +1,13 @@
 #-*- codding:utf-8 -*-
 from tkinter import *
 from logic import Search_engine
+from tkinter import messagebox
 
 class Window(Tk):
     def __init__(self):
         super().__init__()
         self.db_search = Search_engine()
+
         Label(self ,text="Введіть пошуковий запит:").grid(
            row = 0, column=0, columnspan=2, rowspan=3 
         )
@@ -17,17 +19,8 @@ class Window(Tk):
         self.entry_search.grid(row=3, column=0,
                                columnspan=2)
         self.search_but.grid(row=3, column=2)
-def on_change(event):
-    widget = event.widget  # виджет, с которым произошло событие (в данном случае listbox)
-    selection = widget.curselection()  # получаем список индексов выделенных элементов
-    if selection:  # если что-то выделено
-        text = widget.get(selection[0])  # Текст в выбранной строке
-        # выводим текст выделенного элемента в консоль
-        print(text)
-        # то же самое, но вывод в диалоговое окно
-        messagebox.showinfo('Title', text)
+        
 
-lbox.bind('<<ListboxSelect>>', on_change)
         self.list_track = Listbox(self, width=60, height=15)
         self.list_track.grid(row=4, column=0, columnspan=2,
                              rowspan=3,
@@ -44,7 +37,15 @@ lbox.bind('<<ListboxSelect>>', on_change)
             r1 = Radiobutton(self, text=text,
                               variable=self.mode_var,
                               value=val)
-            r1.grid(row=i, column=2, sticky=W)                         
+            r1.grid(row=i, column=2, sticky=W) 
+        self.list_track.bind('<<ListboxSelect>>',   self.on_change)
+    def on_change(self, event):
+        widget = event.widget
+        selection = widget.curselection()
+        if selection:
+            text = widget.get(selection[0])  
+            print(text)
+        messagebox.showinfo('Title', self.select)
     def search(self):
         print("Text from entry:",self.search_text.get())
         text = self.search_text.get()
@@ -53,6 +54,7 @@ lbox.bind('<<ListboxSelect>>', on_change)
         self.list_track.delete(0, END)
         for row in result:
             self.list_track.insert(END, row[0])
+        
     def new_window(self):
         Window().mainloop()
 if __name__=="__main__":

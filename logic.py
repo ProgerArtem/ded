@@ -15,6 +15,13 @@ class Search_engine():
             WHERE Name LIKE ?
         ''', search_text)
         return res
+    def select(self, search_info):
+        search_info = '%'+search_info+'%'
+        print(search_info)
+        t1=self.db.select('''SELECT Name FROM genres
+            WHERE Name LIKE ?;''', search_info);
+        return t1
+
 
 
 if __name__=="__main__":
