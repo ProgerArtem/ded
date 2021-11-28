@@ -16,3 +16,4 @@ class DbChinook():
 
 if __name__=='__main__':
     db = DbChinook()
+    #skoro konez
