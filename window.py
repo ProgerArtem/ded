@@ -2,7 +2,7 @@
 from tkinter import *
 from logic import Search_engine
 from tkinter import messagebox
-
+#skoro konez
 class Window(Tk):
     def __init__(self):
         super().__init__()
