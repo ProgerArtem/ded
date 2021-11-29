@@ -19,6 +19,18 @@ class Window(Tk):
         self.entry_search.grid(row=3, column=0,
                                columnspan=2)
         self.search_but.grid(row=3, column=2)
+        self.db_search = Search_engine()
+        self.ganre_var = StringVar()
+        self.ganre_var.set("Genre:")
+        self.avtor_var = StringVar()
+        self.avtor_var.set("Author")
+    
+        Label(self ,textvariable= self.avtor_var).grid(
+           row = 5, column=2, columnspan=1 
+        )
+        Label(self ,textvariable= self.ganre_var).grid(
+           row = 6, column=2, columnspan=1 
+        )
         
 
         self.list_track = Listbox(self, width=60, height=15)
@@ -30,7 +42,7 @@ class Window(Tk):
         dict_modes = { "Search in tracks": "tracks",
                        "Search in authors": "authors",
                        "Search in genres": "genres"
-        
+
 
         }
         for i, (text, val) in enumerate(dict_modes.items()):
@@ -45,7 +57,10 @@ class Window(Tk):
         if selection:
             text = widget.get(selection[0])  
             print(text)
-        messagebox.showinfo('Title', self.db_search.select)
+            self.ganre_var.set(self.db_search.select(text))
+            self.avtor_var.set(self.db_search.albom(text))
+        
+        messagebox.showinfo('Title', self.db_search.select(text))
         print()
     def search(self):
         print("Text from entry:",self.search_text.get())

@@ -18,9 +18,27 @@ class Search_engine():
     def select(self, search_info):
         search_info = '%'+search_info+'%'
         print(search_info)
-        t1=self.db.select('''SELECT Name FROM genres
-            WHERE Name LIKE ?;''', search_info);
+        t1=self.db.select('''SELECT genres.Name FROM genres 
+                             INNER JOIN tracks ON tracks.GenreId=genres.GenreId
+                             WHERE tracks.Name LIKE ?;
+                        ''', search_info);
+            #SELECT TrackId FROM Tracks
+            #WHERE Name LIKE ?;'''
+        print("RESULT", t1)
         return t1
+    def albom(self, search_info2):
+        search_info2 = '%'+search_info2+'%'
+        print(search_info2)
+        t1=self.db.select('''SELECT albums.Title FROM albums
+                             INNER JOIN tracks ON tracks.AlbumId=albums.AlbumId
+                             WHERE tracks.Name LIKE ?;
+                        ''', search_info2);
+            #SELECT TrackId FROM Tracks
+            #WHERE Name LIKE ?;'''
+        print("RESULT", t1)
+        return t1
+    
+
 
 
 
